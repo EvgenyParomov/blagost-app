@@ -1,0 +1,41 @@
+{
+  "name": "mobile",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-native": "*",
+    "@testing-library/react-native": "*",
+    "react-native": "*",
+    "expo": "*",
+    "expo-dev-client": "*",
+    "expo-status-bar": "*",
+    "expo-splash-screen": "*",
+    "expo-structured-headers": "*",
+    "expo-updates": "*",
+    "react-native-gesture-handler": "*",
+    "react-native-reanimated": "*",
+    "react-native-safe-area-context": "*",
+    "react-native-screens": "*",
+    "react-native-svg": "*",
+    "react-native-web": "*",
+    "@nrwl/expo": "*",
+    "@expo/metro-config": "*",
+    "react": "*",
+    "native-base": "*",
+    "@react-navigation/bottom-tabs": "*",
+    "@react-navigation/native": "*",
+    "@react-navigation/native-stack": "*",
+    "react-query": "*",
+    "@react-native-community/netinfo": "*",
+    "luxon": "*",
+    "tsconfig-paths-webpack-plugin": "*",
+    "@react-native-community/datetimepicker": "*",
+    "expo-linking": "*",
+    "react-native-modal-datetime-picker": "*",
+    "intl": "*",
+    "@babel/plugin-proposal-export-namespace-from": "*"
+  },
+  "scripts": {
+    "eas-build-pre-install": "cd ../../ && npm install && cp package-lock.json ./apps/mobile/ && mv ./apps/mobile/eas.js ./index.js"
+  }
+}

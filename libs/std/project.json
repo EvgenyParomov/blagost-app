@@ -1,0 +1,23 @@
+{
+  "root": "libs/std",
+  "sourceRoot": "libs/std/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/std/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/std"],
+      "options": {
+        "jestConfig": "libs/std/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

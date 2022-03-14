@@ -14,7 +14,14 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@blagost/admin/*": ["apps/admin/src/*"],
+      "@blagost/server/*": ["apps/server/src/*"],
+      "@blagost/mobile/*": ["apps/mobile/src/*"],
+      "@blagost/api": ["libs/api/src/index.ts"],
+      "@blagost/react-std": ["libs/react-std/src/index.ts"],
+      "@blagost/std": ["libs/std/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

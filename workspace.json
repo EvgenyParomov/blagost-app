@@ -2,6 +2,10 @@
   "version": 2,
   "projects": {
     "admin": "apps/admin",
-    "admin-e2e": "apps/admin-e2e"
+    "api": "libs/api",
+    "mobile": "apps/mobile",
+    "react-std": "libs/react-std",
+    "server": "apps/server",
+    "std": "libs/std"
   }
 }

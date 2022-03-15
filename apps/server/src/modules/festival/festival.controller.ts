@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { Dto } from '@blagost/api';
 import { FestivalService } from './festival.service';
+import { FestivalEntity } from '@blagost/server/domain';
 
 @Controller('festival')
 export class FestivalController {
@@ -28,24 +29,13 @@ export class FestivalController {
   }
 
   @Get()
-  async findNext(): Promise<Dto.CurrentFestivalDto> {
-    const festival = await this.festivalService.findNext();
+  async findNext(): Promise<Dto.FestivalDto> {
+    return await this.festivalService.findNext().then(this.festivalEntityToDto);
+  }
 
-    const userDto: Dto.CurrentFestivalDto = {
-      id: festival.id,
-      name: festival.name,
-      endISO: festival.endISO,
-      startISO: festival.startISO,
-      timezone: festival.timezone,
-      days: festival.days.map((day) => {
-        return {
-          id: day.id,
-          dateISO: day.date.toISODate(),
-        };
-      }),
-    };
-
-    return userDto;
+  @Get(':id')
+  async findById(@Param('id') id: FestivalId): Promise<Dto.FestivalDto> {
+    return this.festivalService.findById(id).then(this.festivalEntityToDto);
   }
 
   @Post()
@@ -61,5 +51,21 @@ export class FestivalController {
   @Delete(':id')
   async deleteFestival(@Param('id') id: FestivalId) {
     return this.festivalService.deleteFestival(id);
+  }
+
+  private festivalEntityToDto(festival: FestivalEntity): Dto.FestivalDto {
+    return {
+      id: festival.id,
+      name: festival.name,
+      endISO: festival.endISO,
+      startISO: festival.startISO,
+      timezone: festival.timezone,
+      days: festival.days.map((day) => {
+        return {
+          id: day.id,
+          dateISO: day.date.toISODate(),
+        };
+      }),
+    };
   }
 }

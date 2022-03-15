@@ -9,7 +9,7 @@ import {
   UpdateFestivalButton,
 } from '@blagost/admin/features/crud-festival';
 import { DeleteFestivalButton } from '@blagost/admin/features/crud-festival/delete-festival-button';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 
@@ -24,13 +24,13 @@ export function FestivalsPage() {
       <Box sx={{ mb: 2 }}>
         <CreateFestivalButton />
       </Box>
-      <Box>
+      <Box display="flex" flexWrap="wrap">
         {festivals.map((festival) => (
           <FestivalCard
             key={festival.id}
             {...festival}
             onClick={() => {
-              Router.push(`/festivals/${festival.id}`);
+              Router.push(`/festivals/${encodeURIComponent(festival.id)}`);
             }}
             actions={
               <>

@@ -26,7 +26,7 @@ export function FestivalCard({
   timezone,
 }: Props) {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, mx: 2 }}>
       <CardActionArea onClick={onClick}>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">

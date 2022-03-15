@@ -16,10 +16,14 @@ export class FestivalEntity extends BaseEntity {
   @Column()
   name: string;
 
-  @Column()
+  @Column({
+    type: 'date',
+  })
   startISO: string;
 
-  @Column()
+  @Column({
+    type: 'date',
+  })
   endISO: string;
 
   @Column({

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, MoreThanOrEqual } from 'typeorm';
 import { FestivalEntity } from '@blagost/server/domain';
 import { Dto } from '@blagost/api';
 
@@ -16,13 +16,29 @@ export class FestivalService {
       .createQueryBuilder('festival')
       .leftJoin('festival.days', 'day')
       .addSelect(['day.id', 'day.index'])
-      .orderBy('day.index', 'ASC')
       .leftJoinAndSelect('day.festival', 'day_festival')
+      .orderBy('day.index', 'ASC')
+      .addOrderBy('festival.startISO', 'ASC')
+      .where({
+        endISO: MoreThanOrEqual('NOW()'),
+      })
       .getOne();
   }
 
   async findAll() {
     return this.festivalRepository.find({});
+  }
+
+  async findById(id: FestivalId) {
+    return this.festivalRepository
+      .createQueryBuilder('festival')
+      .select()
+      .where('festival.id = :id', { id })
+      .leftJoin('festival.days', 'day')
+      .addSelect(['day.id', 'day.index'])
+      .leftJoinAndSelect('day.festival', 'day_festival')
+      .orderBy('day.index', 'ASC')
+      .getOne();
   }
 
   async upsertFestival(body: Dto.CreateFestival) {

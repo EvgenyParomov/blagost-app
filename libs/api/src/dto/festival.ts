@@ -10,7 +10,7 @@ export type CreateFestival = PartialFestival;
 
 export type UpdateFestival = PartialFestival;
 
-export type CurrentFestivalDto = {
+export type FestivalDto = {
   id: FestivalId;
   name: string;
   startISO: string;

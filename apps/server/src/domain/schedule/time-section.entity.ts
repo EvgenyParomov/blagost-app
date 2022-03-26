@@ -18,10 +18,10 @@ export class TimeSectionEntity extends BaseEntity {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ type: 'time' })
   startTime: string;
 
-  @Column()
+  @Column({ type: 'time' })
   endTime: string;
 
   @ManyToOne(() => DayEntity, { onDelete: 'CASCADE' })

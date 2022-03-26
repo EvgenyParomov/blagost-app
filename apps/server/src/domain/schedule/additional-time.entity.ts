@@ -13,10 +13,10 @@ export class AdditionalTimeEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: AdditionalTimeId;
 
-  @Column()
+  @Column({ type: 'time' })
   startTime: string;
 
-  @Column({ nullable: true })
+  @Column({ type: 'time', nullable: true })
   endTime?: string;
 
   @ManyToOne(() => DayEntity, { onDelete: 'CASCADE' })

@@ -7,8 +7,8 @@ import {
 import {
   CreateFestivalButton,
   UpdateFestivalButton,
-} from '@blagost/admin/features/crud-festival';
-import { DeleteFestivalButton } from '@blagost/admin/features/crud-festival/delete-festival-button';
+  DeleteFestivalButton,
+} from '@blagost/admin/features/manage-festivals';
 import { Box, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';

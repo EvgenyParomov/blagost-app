@@ -36,7 +36,11 @@ export function createUseMutation<P, R = void>(config: {
 export function createUseQueryOptional<A extends any[], R = void>(config: {
   key: (...args: A) => any[];
   fetcher: (api: AxiosInstance, ...args: RequiredTuple<A>) => R;
-}) {
+}): (...args: A) => {
+  queryKey: any[];
+  queryFn: () => R | Promise<undefined>;
+  enabled: boolean;
+} {
   return (...args: A) => {
     const api = useApi();
     return {

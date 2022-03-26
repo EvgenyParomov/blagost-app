@@ -1,2 +1,4 @@
-export { DayEventsDto } from './day-events.dto';
+export * from './day.dto';
 export * from './festival';
+export * from './event.dto';
+export * from './file.dto';

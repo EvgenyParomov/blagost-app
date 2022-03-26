@@ -18,7 +18,7 @@ export class DayEntity extends BaseEntity {
   @Column()
   index: number;
 
-  @ManyToOne(() => FestivalEntity, { onDelete: 'CASCADE' })
+  @ManyToOne(() => FestivalEntity, { onDelete: 'CASCADE', eager: true })
   festival: FestivalEntity;
 
   @OneToMany(() => AdditionalTimeEntity, (s) => s.day, { onDelete: 'CASCADE' })

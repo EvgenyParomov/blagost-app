@@ -1,3 +1,4 @@
+import { getStabId } from '@blagost/server/shared/uuid';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -14,8 +15,9 @@ import {
 } from '@blagost/server/domain';
 
 import { FestivalModule } from './festival/festival.module';
-import { DayModule } from './day/day.module';
 import { DateTime } from 'luxon';
+import { EventModule } from './event/event.module';
+import { ScheduleModule } from './schedule/schedule.module';
 
 @Module({
   imports: [
@@ -52,53 +54,68 @@ import { DateTime } from 'luxon';
     }),
     EventEmitterModule.forRoot(),
     FestivalModule,
-    DayModule,
+    EventModule,
+    ScheduleModule,
   ],
 })
 export class AppModule {
   async onModuleInit() {
     const today = DateTime.local();
     const festival = await FestivalEntity.create({
+      id: getStabId(),
       startISO: today.minus({ day: 1 }).toISODate(),
       endISO: today.plus({ day: 1 }).toISODate(),
       name: 'Тестовый фестиваль',
     }).save();
 
     const lectorEvgeny = await LectorEntity.create({
-      fullName: 'Евгений Паромов',
+      id: getStabId(),
+      fullName: 'Александр Хакимов',
     }).save();
     const lectorAnna = await LectorEntity.create({
+      id: getStabId(),
       fullName: 'Анна Паромова',
     }).save();
 
-    const kitchen = await PlaceEntity.create({ name: 'Кухня' }).save();
-    const parlor = await PlaceEntity.create({ name: 'Гостинная' }).save();
+    const kitchen = await PlaceEntity.create({
+      id: getStabId(),
+      name: 'Главный зал',
+    }).save();
+    const parlor = await PlaceEntity.create({
+      id: getStabId(),
+      name: 'Гостинная',
+    }).save();
 
     const createDiner = await EventEntity.create({
+      id: getStabId(),
       name: 'Готовить обед',
       lectors: [lectorAnna],
       place: kitchen,
     }).save();
 
     const createBakeFast = await EventEntity.create({
-      name: 'Готовить завтрак',
+      id: getStabId(),
+      name: '«По страницам Священных Писаний»',
       lectors: [lectorEvgeny],
       place: kitchen,
     }).save();
 
     const work = await EventEntity.create({
+      id: getStabId(),
       name: 'Работать работу',
       lectors: [lectorEvgeny],
       place: parlor,
     }).save();
 
     const lookBaby = await EventEntity.create({
+      id: getStabId(),
       name: 'Смотреть за ребёнком',
       lectors: [lectorAnna, lectorEvgeny],
       place: parlor,
     }).save();
 
     const watchFilm = await EventEntity.create({
+      id: getStabId(),
       name: 'Просмотр фильмов',
       lectors: [lectorAnna, lectorEvgeny],
       place: parlor,
@@ -115,12 +132,14 @@ export class AppModule {
     if (day1) {
       day1.timeSections = [
         await TimeSectionEntity.create({
+          id: getStabId(),
           name: 'Утро',
           startTime: '07:00',
           endTime: '10:00',
           events: [createBakeFast],
         }).save(),
         await TimeSectionEntity.create({
+          id: getStabId(),
           name: 'День',
           startTime: '10:00',
           endTime: '18:00',
@@ -129,15 +148,18 @@ export class AppModule {
       ];
       day1.additionalTimes = [
         await AdditionalTimeEntity.create({
+          id: getStabId(),
           startTime: '07:00',
           endTime: '08:00',
           event: createBakeFast,
         }).save(),
         await AdditionalTimeEntity.create({
+          id: getStabId(),
           startTime: '12:00',
           event: work,
         }).save(),
         await AdditionalTimeEntity.create({
+          id: getStabId(),
           startTime: '21:00',
           event: watchFilm,
         }).save(),
@@ -147,12 +169,14 @@ export class AppModule {
     if (day2) {
       day2.timeSections = [
         await TimeSectionEntity.create({
+          id: getStabId(),
           name: 'Утро',
           startTime: '07:00',
           endTime: '10:00',
           events: [createBakeFast],
         }).save(),
         await TimeSectionEntity.create({
+          id: getStabId(),
           name: 'День',
           startTime: '10:00',
           endTime: '18:00',
@@ -161,15 +185,18 @@ export class AppModule {
       ];
       day2.additionalTimes = [
         await AdditionalTimeEntity.create({
+          id: getStabId(),
           startTime: '12:00',
           endTime: '13:00',
           event: createDiner,
         }).save(),
         await AdditionalTimeEntity.create({
+          id: getStabId(),
           startTime: '12:00',
           event: work,
         }).save(),
         await AdditionalTimeEntity.create({
+          id: getStabId(),
           startTime: '21:00',
           event: watchFilm,
         }).save(),

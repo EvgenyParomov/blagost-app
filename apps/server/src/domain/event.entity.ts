@@ -22,6 +22,9 @@ export class EventEntity extends BaseEntity {
   @JoinTable()
   lectors: LectorEntity[];
 
+  @ManyToMany(() => LectorEntity)
+  participant: LectorEntity[];
+
   @ManyToOne(() => PlaceEntity)
   place: PlaceEntity;
 }

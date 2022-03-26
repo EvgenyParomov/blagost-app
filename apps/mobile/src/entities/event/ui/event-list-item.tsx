@@ -1,4 +1,4 @@
-import { Text, Box } from "native-base";
+import { Text, Box } from 'native-base';
 
 type Props = {
   lectors: string[];
@@ -9,11 +9,11 @@ type Props = {
 export const EventListItem = ({ place, name, lectors }: Props) => {
   return (
     <Box>
-      <Text numberOfLines={1} ellipsizeMode="tail" fontSize="md">
+      <Text numberOfLines={1} ellipsizeMode="tail" bold fontSize="md">
         {name}
       </Text>
       {lectors.map((lector) => (
-        <Text numberOfLines={1} ellipsizeMode="tail" bold>
+        <Text numberOfLines={1} ellipsizeMode="tail">
           {lector}
         </Text>
       ))}

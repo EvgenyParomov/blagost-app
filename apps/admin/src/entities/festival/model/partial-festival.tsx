@@ -24,8 +24,8 @@ export const dtoToPartialFestival = ({
 });
 
 export const partialFestivalToCreateDto = ({
-  start,
-  end,
+  start = DateTime.local(),
+  end = DateTime.local(),
   ...rest
 }: PartialFestival): Dto.CreateFestival => ({
   ...rest,

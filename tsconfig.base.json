@@ -16,10 +16,10 @@
     "baseUrl": ".",
     "paths": {
       "@blagost/admin/*": ["apps/admin/src/*"],
-      "@blagost/server/*": ["apps/server/src/*"],
-      "@blagost/mobile/*": ["apps/mobile/src/*"],
       "@blagost/api": ["libs/api/src/index.ts"],
+      "@blagost/mobile/*": ["apps/mobile/src/*"],
       "@blagost/react-std": ["libs/react-std/src/index.ts"],
+      "@blagost/server/*": ["apps/server/src/*"],
       "@blagost/std": ["libs/std/src/index.ts"]
     }
   },

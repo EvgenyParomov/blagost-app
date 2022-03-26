@@ -1,58 +1,56 @@
-import { DayCard } from '@blagost/admin/entities/day';
-import { useFestivalByIdQuery } from '@blagost/admin/entities/festival';
+import { dayDtoToDay, useDayByIdQuery } from '@blagost/admin/entities/day';
 import { useParamId } from '@blagost/admin/lib/use-param-id';
-import { Box, Typography } from '@mui/material';
-import { DateTime } from 'luxon';
+import { Box, Link, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
+import NextLink from 'next/link';
 import { useQuery } from 'react-query';
+import { TimeSections } from './TimeSections';
+import { AdditionalTimes } from './AdditionalTimes';
+import { SelectEventProvider } from '@blagost/admin/entities/event';
 
 type Props = {};
 export function DayPage({}: Props) {
   const Router = useRouter();
   const festivalId = useParamId<FestivalId>('id');
-  const { festival } = useFestival(festivalId);
+  const dayId = useParamId<DayId>('dayId');
+
+  const { day } = useDay(dayId);
+
   return (
-    <Box>
-      <Typography variant="h1" component="h1">
-        {festival?.name}
-      </Typography>
-      <Box sx={{ mb: 2 }}>
-        {festival?.days.map((day) => {
-          return (
-            <DayCard
-              key={day.id}
-              date={day.date}
-              onClick={() => {
-                Router.push(
-                  `/festivals/${encodeURIComponent(
-                    festivalId
-                  )}/day/${encodeURIComponent(day.id)}`
-                );
-              }}
-            />
-          );
-        })}
+    <SelectEventProvider>
+      <Box>
+        <Box>
+          <NextLink
+            href={`/festivals/${encodeURIComponent(festivalId)}`}
+            passHref
+          >
+            <Link>Назад</Link>
+          </NextLink>
+        </Box>
+        <Typography variant="h2" component="h2" mb={5}>
+          {day?.date.toLocaleString({
+            month: 'long',
+            day: '2-digit',
+            weekday: 'long',
+          })}
+        </Typography>
+        {day && (
+          <TimeSections dayId={day.id} timeSections={day?.timeSections ?? []} />
+        )}
+        <AdditionalTimes additionalTimes={day?.additionalTimes ?? []} />
       </Box>
-    </Box>
+    </SelectEventProvider>
   );
 }
 
-function useFestival(id: FestivalId) {
+function useDay(dayId: DayId) {
   const { data, isLoading } = useQuery({
-    ...useFestivalByIdQuery(id),
-    select: (festival) => {
-      return {
-        ...festival,
-        days: festival.days.map((day) => ({
-          id: day.id,
-          date: DateTime.fromISO(day.dateISO),
-        })),
-      };
-    },
+    ...useDayByIdQuery(dayId),
+    select: dayDtoToDay,
   });
 
   return {
-    festival: data,
+    day: data,
     isLoading,
   };
 }

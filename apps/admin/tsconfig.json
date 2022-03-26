@@ -15,6 +15,11 @@
     "incremental": true
   },
   "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "next-env.d.ts"],
-  "files": ["../../kernel.d.ts"],
+  "files": [
+    "../../kernel.d.ts",
+    "./src/pages/day/TimeSections.tsx",
+    "./src/pages/day/TimeSection.tsx",
+    "./src/pages/day/AdditionalTimes.tsx"
+  ],
   "exclude": ["node_modules"]
 }

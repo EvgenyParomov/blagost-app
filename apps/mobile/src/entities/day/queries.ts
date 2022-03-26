@@ -5,6 +5,5 @@ export const dayEventsKey = (id?: DayId) => [dayBaseKey, 'events', id];
 
 export const useDayEvents = createUseQueryOptional({
   key: dayEventsKey,
-  fetcher: (api, id) =>
-    api.get<Dto.DayEventsDto>(`/day/${id}/main-events`).then(getRes),
+  fetcher: (api, id) => api.get<Dto.DayDto>(`/day/${id}`).then(getRes),
 });

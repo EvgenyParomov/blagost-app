@@ -3,6 +3,7 @@
   "projects": {
     "admin": "apps/admin",
     "api": "libs/api",
+    "file-server": "apps/file-server",
     "mobile": "apps/mobile",
     "react-std": "libs/react-std",
     "server": "apps/server",

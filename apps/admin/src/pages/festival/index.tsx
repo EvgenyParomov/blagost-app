@@ -1,23 +1,25 @@
 import { DayCard } from '@blagost/admin/entities/day';
-import {
-  FestivalCard,
-  useFestivalByIdQuery,
-} from '@blagost/admin/entities/festival';
+import { useFestivalByIdQuery } from '@blagost/admin/entities/festival';
 import { useParamId } from '@blagost/admin/lib/use-param-id';
-import { Box, Typography } from '@mui/material';
+import { Box, Link, Typography } from '@mui/material';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
+import NextLink from 'next/link';
 
 type Props = {};
 export function FestivalPage({}: Props) {
   const Router = useRouter();
-  console.log(Router);
   const festivalId = useParamId<FestivalId>('id');
   console.log(festivalId);
   const { isLoading, festival } = useFestival(festivalId);
   return (
     <Box>
+      <Box>
+        <NextLink href={`/festivals`} passHref>
+          <Link>Назад</Link>
+        </NextLink>
+      </Box>
       <Typography variant="h1" component="h1">
         {festival?.name}
       </Typography>

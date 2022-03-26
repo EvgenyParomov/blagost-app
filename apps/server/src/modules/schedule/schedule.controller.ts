@@ -37,4 +37,12 @@ export class ScheduleController {
   addEvent(@Param('id') id: TimeSectionId, @Param('eventId') eventId: EventId) {
     return this.timeSectionService.addEvent(id, eventId);
   }
+
+  @Patch('time-section/:id/remove-event/:eventId')
+  removeEvent(
+    @Param('id') id: TimeSectionId,
+    @Param('eventId') eventId: EventId
+  ) {
+    return this.timeSectionService.removeEvent(id, eventId);
+  }
 }

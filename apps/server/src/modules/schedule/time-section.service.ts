@@ -42,4 +42,17 @@ export class TimeSectionService {
 
     return await this.timeSectionRepostitory.save(timeSection);
   }
+
+  async removeEvent(timeSectionId: TimeSectionId, eventId: EventId) {
+    const timeSection = await this.timeSectionRepostitory.findOneOrFail({
+      where: { id: timeSectionId },
+      relations: ['events'],
+    });
+
+    timeSection.events = timeSection.events.filter((e) => e.id !== eventId);
+
+    await this.timeSectionRepostitory.save(timeSection);
+
+    return timeSection;
+  }
 }

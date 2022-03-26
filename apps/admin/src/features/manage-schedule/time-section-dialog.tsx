@@ -6,6 +6,7 @@ import {
   DialogTitle,
   TextField,
   Box,
+  MenuItem,
 } from '@mui/material';
 import { TimePicker } from '@mui/lab';
 import { useForm, Controller } from 'react-hook-form';
@@ -14,26 +15,29 @@ import { DateTime } from 'luxon';
 import { useEffect } from 'react';
 
 import { createId } from '@blagost/std';
-import { TimeSection } from '@blagost/admin/entities/day';
+import { TimeSection, timeSectionTypes } from '@blagost/admin/entities/day';
 import { Dto } from '@blagost/api';
 
 const timeSectionToFormData = ({
   name,
   start,
   end,
+  type,
 }: TimeSection): TimeSectionFormData => ({
   name,
   start,
   end,
+  type,
 });
 
 const formDataToUpsertDto = (
-  { start, end, name }: TimeSectionFormData,
+  { start, end, name, type }: TimeSectionFormData,
   dayId: DayId,
   timeSectionId = createId<TimeSectionId>()
 ): Dto.UpsertTimeSectionDto => ({
   id: timeSectionId,
   name,
+  type,
   startTime: start.toISOTime(),
   endTime: end.toISOTime(),
   dayId,
@@ -43,6 +47,7 @@ export type TimeSectionFormData = {
   start: DateTime;
   end: DateTime;
   name: string;
+  type: TimeSectionType;
 };
 
 type DialogSettings = {
@@ -97,6 +102,25 @@ const TimeSectionModal: React.FC<DialogViewProps<DialogSettings>> = ({
                 type="email"
                 {...field}
               />
+            )}
+          />
+          <Controller
+            name="type"
+            control={control}
+            rules={{ required: true }}
+            defaultValue="many"
+            render={({ field }) => (
+              <TextField
+                margin="normal"
+                select
+                fullWidth
+                label="Тип"
+                {...field}
+              >
+                {Object.entries(timeSectionTypes).map(([value, label]) => (
+                  <MenuItem value={value}>{label}</MenuItem>
+                ))}
+              </TextField>
             )}
           />
           <>

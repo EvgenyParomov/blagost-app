@@ -52,6 +52,7 @@ export class DayService {
             name: timeSection.name,
             endTime: timeSection.endTime,
             startTime: timeSection.startTime,
+            type: timeSection.type,
             events: timeSection.events.map((event) => ({
               id: event.id,
               lectors: event.lectors.map((l) => l.fullName),

@@ -1,6 +1,10 @@
-import { TimeSection as TimeSectionType } from '@blagost/admin/entities/day';
+import {
+  TimeSection as TimeSectionType,
+  timeSectionTypes,
+} from '@blagost/admin/entities/day';
 import {
   Box,
+  Chip,
   IconButton,
   List,
   ListItem,
@@ -17,6 +21,7 @@ import {
   useUpsertTimeSection,
 } from '@blagost/admin/features/manage-schedule';
 
+console.log(timeSectionTypes);
 export function TimeSection({
   timeSection,
   dayId,
@@ -30,14 +35,17 @@ export function TimeSection({
   const removeEvent = useTimeSectionRemoveEvent(dayId, timeSection.id);
   return (
     <Paper elevation={2}>
-      <Box display="flex" px={2} pt={2}>
-        <Typography>
-          {timeSection.start.toFormat('HH:mm')} -{' '}
-          {timeSection.end.toFormat('HH:mm')}
-        </Typography>
-        <Typography ml={1} fontWeight="bold">
-          {timeSection.name}
-        </Typography>
+      <Box px={2} pt={2}>
+        <Box display="flex" mb={1}>
+          <Typography>
+            {timeSection.start.toFormat('HH:mm')} -{' '}
+            {timeSection.end.toFormat('HH:mm')}
+          </Typography>
+          <Typography ml={1} fontWeight="bold">
+            {timeSection.name}
+          </Typography>
+        </Box>
+        <Chip label={timeSectionTypes?.[timeSection?.type]} />
       </Box>
       <List>
         {timeSection.events.map((event) => (

@@ -13,6 +13,7 @@ export type TimeSection = {
   name: string;
   start: DateTime;
   end: DateTime;
+  type: TimeSectionType;
   events: EventInfo[];
 };
 export type AdditionalTime = {
@@ -39,9 +40,7 @@ export const dayDtoToDay = ({
     id,
     date,
     timeSections: timeSections.map((t) => ({
-      id: t.id,
-      name: t.name,
-      events: t.events,
+      ...t,
       start: date.plus(Duration.fromISOTime(t.startTime)),
       end: date.plus(Duration.fromISOTime(t.endTime)),
       dayId: id,
@@ -54,4 +53,10 @@ export const dayDtoToDay = ({
       dayId: id,
     })),
   };
+};
+
+export const timeSectionTypes: Record<TimeSectionType, string> = {
+  many: 'Много мероприятий',
+  one: 'Одна лекция',
+  empty: 'Без мероприятий',
 };

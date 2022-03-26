@@ -24,6 +24,9 @@ export class TimeSectionEntity extends BaseEntity {
   @Column({ type: 'time' })
   endTime: string;
 
+  @Column({ type: 'varchar', default: 'many' })
+  type: TimeSectionType;
+
   @ManyToOne(() => DayEntity, { onDelete: 'CASCADE' })
   day: DayEntity;
 

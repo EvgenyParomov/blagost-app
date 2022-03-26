@@ -15,3 +15,6 @@ declare type FileRelationId = Brand<string, 'FileRelationId'>;
 // literals
 declare type Email = string;
 declare type StringPassword = string;
+
+//unions
+declare type TimeSectionType = 'many' | 'one' | 'empty';

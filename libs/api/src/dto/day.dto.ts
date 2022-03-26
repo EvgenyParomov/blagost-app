@@ -12,6 +12,7 @@ type TimeSection = {
   startTime: string;
   endTime: string;
   name: string;
+  type: TimeSectionType;
   events: PartialEventDto[];
 };
 
@@ -24,5 +25,5 @@ type AdditionalTime = {
 
 export type UpsertTimeSectionDto = Pick<
   TimeSection,
-  'id' | 'startTime' | 'endTime' | 'name'
+  'id' | 'startTime' | 'endTime' | 'name' | 'type'
 > & { dayId: DayId };

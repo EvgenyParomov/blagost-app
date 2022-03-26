@@ -13,6 +13,7 @@ import { LoadingButton } from '@mui/lab';
 import {
   useDeleteTimeSection,
   useTimeSectionAddEvent,
+  useTimeSectionRemoveEvent,
   useUpsertTimeSection,
 } from '@blagost/admin/features/manage-schedule';
 
@@ -26,6 +27,7 @@ export function TimeSection({
   const upsertTimeSection = useUpsertTimeSection(dayId, timeSection);
   const deleteTimeSection = useDeleteTimeSection(dayId, timeSection.id);
   const addEvent = useTimeSectionAddEvent(dayId, timeSection.id);
+  const removeEvent = useTimeSectionRemoveEvent(dayId, timeSection.id);
   return (
     <Paper elevation={2}>
       <Box display="flex" px={2} pt={2}>
@@ -42,7 +44,12 @@ export function TimeSection({
           <ListItem
             key={event.id}
             secondaryAction={
-              <IconButton edge="end" aria-label="delete">
+              <IconButton
+                disabled={removeEvent.isLoading}
+                onClick={() => removeEvent.removeEvent(event.id)}
+                edge="end"
+                aria-label="delete"
+              >
                 <DeleteIcon />
               </IconButton>
             }

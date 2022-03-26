@@ -27,3 +27,17 @@ export const useTimeSectionAddEventMutation = createUseMutation({
     (params) => eventsListKey({ notInTimeSection: params.timeSectionId }),
   ],
 });
+
+export const useTimeSectionRemoveEventMutation = createUseMutation({
+  fetcher: (
+    api,
+    params: { dayId: DayId; timeSectionId: TimeSectionId; eventId: EventId }
+  ) =>
+    api.patch(
+      `schedule/time-section/${params.timeSectionId}/remove-event/${params.eventId}`
+    ),
+  invalidateKeys: [
+    (params) => dayByIdKey(params.dayId),
+    (params) => eventsListKey({ notInTimeSection: params.timeSectionId }),
+  ],
+});

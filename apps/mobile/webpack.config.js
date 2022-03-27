@@ -20,6 +20,16 @@ module.exports = async function (env, argv) {
               },
             ],
           ],
+          plugins: [
+            [
+              'module-resolver',
+              {
+                alias: {
+                  '@native-base/icons': '@native-base/icons/lib',
+                },
+              },
+            ],
+          ],
         },
       },
     });

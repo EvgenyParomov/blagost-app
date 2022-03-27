@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
-import { Box, ScrollView } from "native-base";
+import { ReactNode } from 'react';
+import { Box, ScrollView } from 'native-base';
 
-import { Overlay } from "./overlay";
+import { Overlay } from './overlay';
 
 type Props = {
   daySelect: ReactNode;
@@ -17,13 +17,20 @@ export function ScheduleLayout({
   isLoading,
 }: Props) {
   return (
-    <Box flexGrow="1">
+    <Box flex="1">
       <Box bg="cyan.500" h="6"></Box>
       <Box>{daySelect}</Box>
       <Box>{scheduleSelect}</Box>
-      <Box flexGrow="1" style={{ position: "relative" }}>
+      <Box flex="1" style={{ position: 'relative' }}>
         {isLoading && <Overlay />}
-        <ScrollView py="2">{children}</ScrollView>
+        <ScrollView
+          flex="1"
+          _contentContainerStyle={{
+            py: 2,
+          }}
+        >
+          {children}
+        </ScrollView>
       </Box>
     </Box>
   );

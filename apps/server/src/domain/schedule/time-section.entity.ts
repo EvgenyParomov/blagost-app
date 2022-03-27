@@ -15,8 +15,8 @@ export class TimeSectionEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: TimeSectionId;
 
-  @Column()
-  name: string;
+  @Column({ nullable: true })
+  name?: string;
 
   @Column({ type: 'time' })
   startTime: string;

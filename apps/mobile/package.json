@@ -33,7 +33,8 @@
     "expo-linking": "*",
     "react-native-modal-datetime-picker": "*",
     "intl": "*",
-    "@babel/plugin-proposal-export-namespace-from": "*"
+    "@babel/plugin-proposal-export-namespace-from": "*",
+    "uuid": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && npm install && cp package-lock.json ./apps/mobile/ && mv ./apps/mobile/eas.js ./index.js"

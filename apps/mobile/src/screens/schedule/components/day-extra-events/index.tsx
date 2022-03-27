@@ -1,8 +1,10 @@
 import { useDayEvents } from '@blagost/mobile/entities/day';
-import { EventItemWithTime } from '@blagost/mobile/entities/event';
+import { Duration } from 'luxon';
 import { VStack } from 'native-base';
 import React from 'react';
 import { useQuery } from 'react-query';
+import { EventListItem } from '../../view/event-list-item';
+import { ListRow } from '../../view/list-row';
 
 type Props = {
   dayId?: DayId;
@@ -10,15 +12,17 @@ type Props = {
 export const DayExtraEvents = ({ dayId }: Props) => {
   const additionalTimes = useDayAdditionalTimes(dayId);
   return (
-    <VStack space="1">
+    <VStack space="2">
       {additionalTimes?.map((time) => (
-        <EventItemWithTime
-          startTime={time.startTime}
-          endTime={time.endTime}
-          name={time.event.name}
-          place={time.event.place}
-          lectors={time.event.lectors}
-        />
+        <ListRow sx={{ py: 4 }}>
+          <EventListItem
+            startTime={time.startTime}
+            endTime={time.endTime}
+            name={time.event.name}
+            place={time.event.place}
+            lectors={time.event.lectors}
+          />
+        </ListRow>
       ))}
     </VStack>
   );
@@ -27,7 +31,12 @@ export const DayExtraEvents = ({ dayId }: Props) => {
 function useDayAdditionalTimes(dayId?: DayId) {
   const { data } = useQuery({
     ...useDayEvents(dayId),
-    select: (data) => data?.additionalTimes,
+    select: (data) =>
+      data?.additionalTimes?.map((t) => ({
+        ...t,
+        startTime: Duration.fromISOTime(t.startTime),
+        endTime: t.endTime ? Duration.fromISOTime(t.endTime) : undefined,
+      })),
   });
 
   return data;

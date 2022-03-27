@@ -39,8 +39,8 @@ export class DayService {
             event: {
               id: time.event.id,
               name: time.event.name,
-              place: time.event.place.name,
-              lectors: time.event.lectors.map((l) => l.fullName),
+              place: time.event.place?.name,
+              lectors: time.event.lectors?.map((l) => l?.fullName),
             },
           };
         })
@@ -55,9 +55,9 @@ export class DayService {
             type: timeSection.type,
             events: timeSection.events.map((event) => ({
               id: event.id,
-              lectors: event.lectors.map((l) => l.fullName),
+              lectors: event.lectors?.map((l) => l?.fullName),
               name: event.name,
-              place: event.place.name,
+              place: event.place?.name,
             })),
           };
         })

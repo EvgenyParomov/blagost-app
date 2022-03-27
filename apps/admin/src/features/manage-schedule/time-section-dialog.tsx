@@ -93,7 +93,6 @@ const TimeSectionModal: React.FC<DialogViewProps<DialogSettings>> = ({
           <Controller
             name="name"
             control={control}
-            rules={{ required: true }}
             render={({ field }) => (
               <TextField
                 margin="normal"

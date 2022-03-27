@@ -1,17 +1,17 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-import { DaySelect } from '@blagost/mobile/widgets/day-select';
-import {
-  ScheduleType,
-  ScheduleTypeSelect,
-} from '@blagost/mobile/widgets/schedule-type-select';
-import { DayMainEvents } from '@blagost/mobile/widgets/day-main-events';
-import { DayExtraEvents } from '@blagost/mobile/widgets/day-extra-events';
 import { useDayEvents } from '@blagost/mobile/entities/day';
 import { RootTabScreenProps } from '@blagost/mobile/shared/interfaces';
 
-import { ScheduleLayout } from './ui/shcedule-layout';
+import { ScheduleLayout } from './view/shcedule-layout';
 import { useQuery } from 'react-query';
+import {
+  ScheduleType,
+  ScheduleTypeSelect,
+} from './components/schedule-type-select';
+import { DaySelect } from './components/day-select';
+import { DayMainEvents } from './components/day-main-events';
+import { DayExtraEvents } from './components/day-extra-events';
 
 export function ScheduleScreen({}: RootTabScreenProps<'ScheduleTab'>) {
   const [scheduleType, setScheduleType] = useState(ScheduleType.Main);

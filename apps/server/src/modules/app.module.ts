@@ -12,12 +12,15 @@ import {
   TimeSectionEntity,
   LectorEntity,
   PlaceEntity,
+  LinkEntity,
 } from '@blagost/server/domain';
 
 import { FestivalModule } from './festival/festival.module';
 import { DateTime } from 'luxon';
 import { EventModule } from './event/event.module';
 import { ScheduleModule } from './schedule/schedule.module';
+import { LectorModule } from './lector/lector.module';
+import { FileModule } from './file/file.module';
 
 @Module({
   imports: [
@@ -39,6 +42,7 @@ import { ScheduleModule } from './schedule/schedule.module';
             TimeSectionEntity,
             LectorEntity,
             PlaceEntity,
+            LinkEntity,
           ],
           synchronize: true,
           autoLoadEntities: true,
@@ -56,6 +60,8 @@ import { ScheduleModule } from './schedule/schedule.module';
     FestivalModule,
     EventModule,
     ScheduleModule,
+    LectorModule,
+    FileModule,
   ],
 })
 export class AppModule {
@@ -68,25 +74,45 @@ export class AppModule {
       name: 'Тестовый фестиваль',
     }).save();
 
+    const linkBl = await LinkEntity.create({
+      label: 'Сайт благости',
+      href: '#',
+    }).save();
+
+    const image1 = '397-89b1b922-134b-4867-8901-c2dfbb12f1a3.png' as FileName;
+    const image2 =
+      '242 (1)-640e7ec0-78ee-4f9d-aeed-05dca328b73a.jpg' as FileName;
+    const image3 = '242-65d7d050-8453-4c06-8f15-fd1fc70a1f59.jpg' as FileName;
+    const image4 = '190-d6768cd8-b0de-4d82-a039-71d55f389453.png' as FileName;
+    const image5 =
+      '241 (1)-916560f1-ff74-482e-a4de-57dd1ac073f4.png' as FileName;
+
     const lectorEK = await LectorEntity.create({
       id: getStabId(),
       fullName: 'Евгений Койнов',
+      avatar: image1,
+      links: [linkBl],
+      photos: [image2, image3],
     }).save();
     const lectorOD = await LectorEntity.create({
       id: getStabId(),
       fullName: 'Ольга Давыденко',
+      avatar: image5,
     }).save();
     const lectorAT = await LectorEntity.create({
       id: getStabId(),
       fullName: 'Александр Тимашев',
+      avatar: image4,
     }).save();
     const lectorVO = await LectorEntity.create({
       id: getStabId(),
       fullName: 'Виктор Орехов',
+      avatar: image3,
     }).save();
     const lectorLG = await LectorEntity.create({
       id: getStabId(),
       fullName: 'Леонид Герасьянов',
+      avatar: image2,
     }).save();
     const lectorASH = await LectorEntity.create({
       id: getStabId(),

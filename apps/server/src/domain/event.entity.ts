@@ -18,6 +18,9 @@ export class EventEntity extends BaseEntity {
   @Column()
   name: string;
 
+  @Column({ nullable: true })
+  dateTimeDescription?: string;
+
   @ManyToMany(() => LectorEntity)
   @JoinTable()
   lectors: LectorEntity[];

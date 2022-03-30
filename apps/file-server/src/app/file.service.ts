@@ -13,6 +13,12 @@ export class FileService {
     private fileRepository: Repository<FileEntity>
   ) {}
 
+  async getFiles() {
+    return this.fileRepository.find({
+      relations: ['relations'],
+    });
+  }
+
   async getFile(fileName: FileName): Promise<Dto.FileDto> {
     return this.fileRepository.findOne({
       where: {

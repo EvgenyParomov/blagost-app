@@ -1,6 +1,7 @@
+import { differenceBy } from 'lodash';
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { RelationEntity } from './entities/relation.entity';
 
 @Injectable()
@@ -11,20 +12,25 @@ export class RelationService {
     private relationRepository: Repository<RelationEntity>
   ) {}
 
-  async addFileRelations(relations: { fileName: FileName; entityId: Id }[]) {
-    const res = await this.relationRepository.save(
-      relations.map(({ entityId, fileName }) =>
-        this.relationRepository.create({ entityId, fileName })
-      )
-    );
-
-    res.forEach(({ fileName, entityId }) => {
-      this.logger.log(
-        `Added relation fileName:${fileName} entityId:${entityId}`
-      );
+  async updateFileRelations(entityId: Id, newFiles: FileName[]) {
+    const lastRelations = await this.relationRepository.find({
+      where: {
+        entityId,
+      },
     });
 
-    return res;
+    const newRelations = newFiles.map((fileName) =>
+      this.relationRepository.create({ fileName, entityId })
+    );
+
+    const toAdd = differenceBy(newRelations, lastRelations, 'fileName');
+    const toRemove = differenceBy(lastRelations, newRelations, 'fileName');
+
+    this.logDelete(toRemove);
+    await this.relationRepository.remove(toRemove);
+
+    await this.relationRepository.save(toAdd);
+    this.logAdd(toAdd);
   }
 
   async deleteEntityRelations(entityId: Id) {
@@ -36,29 +42,24 @@ export class RelationService {
 
     await this.relationRepository.delete({ entityId });
 
-    relations.forEach(({ entityId, fileName }) => {
-      this.logger.log(
-        `Deleted relation fileName:${fileName} entityId:${entityId}`
-      );
-    });
+    this.logDelete(relations);
 
     return relations;
   }
 
-  async deleteFileRelation(fileName: FileName, entityId: Id) {
-    const relation = await this.relationRepository.findOne({
-      where: {
-        fileName,
-        entityId,
-      },
+  private logDelete(relations: RelationEntity[]) {
+    console.log(relations);
+    relations.forEach(({ fileName, entityId }) => {
+      this.logger.log(
+        `Deleted relation fileName:${fileName} entityId:${entityId}`
+      );
     });
-
-    await this.relationRepository.delete(relation);
-
-    this.logger.log(
-      `Deleted relation fileName:${fileName} entityId:${entityId}`
-    );
-
-    return relation;
+  }
+  private logAdd(relations: RelationEntity[]) {
+    relations.forEach(({ fileName, entityId }) => {
+      this.logger.log(
+        `Added relation fileName:${fileName} entityId:${entityId}`
+      );
+    });
   }
 }

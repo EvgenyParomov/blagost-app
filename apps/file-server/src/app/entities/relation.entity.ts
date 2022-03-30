@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 import { FileEntity } from './file.entity';
 
 @Entity()
@@ -12,7 +12,4 @@ export class RelationEntity {
   @ManyToOne(() => FileEntity, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'fileName' })
   file: FileEntity;
-
-  @Column()
-  count: number;
 }

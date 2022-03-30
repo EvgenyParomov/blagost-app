@@ -11,6 +11,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import { ClearService } from './clear.service';
 import { FileService } from './file.service';
 import { RelationService } from './relation.service';
 
@@ -18,13 +19,24 @@ import { RelationService } from './relation.service';
 export class AppController {
   constructor(
     private fileService: FileService,
-    private relationService: RelationService
+    private relationService: RelationService,
+    private clearService: ClearService
   ) {}
 
   @Post()
   @UseInterceptors(FilesInterceptor('files', 20))
   async uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
     return await this.fileService.addFiles(files);
+  }
+
+  @Get('clear')
+  clear() {
+    this.clearService.deleteFileWithNoRelations();
+  }
+
+  @Get('files')
+  getFiles() {
+    return this.fileService.getFiles();
   }
 
   @Get('files/:fileName')
@@ -37,19 +49,15 @@ export class AppController {
     return this.fileService.deleteFile(fileName);
   }
 
-  @Post('relations/add')
-  addRelations(@Body() { relations }: Dto.CreateRelationsDto) {
-    return this.relationService.addFileRelations(relations);
+  @Post('relations')
+  updateEntityRelations(
+    @Body() { files, entityId }: Dto.UpdateEntityRelations
+  ) {
+    return this.relationService.updateFileRelations(entityId, files);
   }
 
   @Delete('relations')
-  deleteEntityRelations(
-    @Query('entityId') entityId: Id,
-    @Query() fileName?: FileName
-  ) {
-    if (fileName) {
-      return this.relationService.deleteFileRelation(fileName, entityId);
-    }
+  deleteEntityRelations(@Query('entityId') entityId: Id) {
     return this.relationService.deleteEntityRelations(entityId);
   }
 }

@@ -27,8 +27,8 @@ export class ClearService {
       .createQueryBuilder('file')
       .select()
       .leftJoin('file.relations', 'relations')
-      .groupBy('file.id')
-      .having('COUNT(relations.fileName) = 0')
+      .groupBy('file.name')
+      .having('COUNT(relations."fileName") = 0')
       .getMany();
 
     await Promise.all(

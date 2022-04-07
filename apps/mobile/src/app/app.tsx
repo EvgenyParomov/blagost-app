@@ -7,6 +7,7 @@ import { Navigation } from './navigation';
 import { AppQueryClientProvider } from './providers/app-query-client-provider';
 import { AppApiProvider } from './providers/app-api-provider';
 import { ComposeProviders } from '@blagost/react-std';
+import { AppSettingsProvider } from './providers/app-settings-provider';
 
 export const App = () => {
   const colorScheme = useColorScheme();
@@ -14,7 +15,11 @@ export const App = () => {
   return (
     <NativeBaseProvider>
       <ComposeProviders
-        providers={[<AppQueryClientProvider />, <AppApiProvider />]}
+        providers={[
+          <AppQueryClientProvider />,
+          <AppApiProvider />,
+          <AppSettingsProvider />,
+        ]}
       >
         <Box bg="cyan.500"></Box>
         <Navigation colorScheme={colorScheme} />

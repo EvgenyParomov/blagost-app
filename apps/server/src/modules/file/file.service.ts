@@ -15,4 +15,10 @@ export class FileService {
       } as Dto.UpdateEntityRelations)
     );
   }
+
+  async deleteEntityRelations(entityId: Id) {
+    await firstValueFrom(
+      this.httpService.delete(`relations?entityId=${entityId}`)
+    );
+  }
 }

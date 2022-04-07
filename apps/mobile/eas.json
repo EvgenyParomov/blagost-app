@@ -1,17 +1,22 @@
 {
   "build": {
     "production": {
+      "env": {},
       "android": {
         "buildType": "app-bundle"
       }
     },
     "development": {
+      "env": {},
       "android": {
         "developmentClient": true,
         "distribution": "internal"
       }
     },
     "preview": {
+      "env": {
+        "extends": "production"
+      },
       "ios": {
         "simulator": true
       }

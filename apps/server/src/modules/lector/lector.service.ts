@@ -1,6 +1,6 @@
 import { Dto } from '@blagost/api';
-import { LectorEntity } from '@blagost/server/domain';
-import { Injectable } from '@nestjs/common';
+import { EventEntity, LectorEntity } from '@blagost/server/domain';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { compact, uniq } from 'lodash';
 import { Repository } from 'typeorm';
@@ -15,9 +15,7 @@ export class LectorService {
   ) {}
 
   async getLectorsList(): Promise<Dto.LectorPartialDto[]> {
-    const lectors = await this.lectorsRepository.find({
-      relations: ['avatar'],
-    });
+    const lectors = await this.lectorsRepository.find({});
 
     return lectors.map<Dto.LectorPartialDto>((l) => ({
       id: l.id,
@@ -27,12 +25,32 @@ export class LectorService {
   }
 
   async getLectorById(id: LectorId): Promise<Dto.LectorDto> {
-    const lector = await this.lectorsRepository.findOneOrFail({
+    const lector = await this.lectorsRepository.findOne({
       where: {
         id,
       },
-      relations: ['events', 'links'],
+      relations: [
+        'links',
+        'eventsHost',
+        'eventsHost.lectors',
+        'eventsHost.place',
+        'eventsParticipant',
+        'eventsParticipant.lectors',
+        'eventsParticipant.place',
+      ],
     });
+    if (!lector) throw new NotFoundException();
+
+    const eventToDto =
+      (isParticipant: boolean) =>
+      (event: EventEntity): Dto.LectorEventDto => ({
+        id: event.id,
+        name: event.name,
+        dateTimeDescription: event.dateTimeDescription,
+        place: event.place.name,
+        lectors: event.lectors.map((l) => l.fullName),
+        isParticipant,
+      });
 
     return {
       id: lector.id,
@@ -42,11 +60,10 @@ export class LectorService {
       photos: lector.photos,
       avatar: lector.avatar,
       video: lector.video,
-      events: lector.events.map((e) => ({
-        id: e.id,
-        name: e.name,
-        dateTimeDescription: e.dateTimeDescription,
-      })),
+      events: [
+        ...lector.eventsHost.map(eventToDto(false)),
+        ...lector.eventsParticipant.map(eventToDto(true)),
+      ],
     };
   }
 
@@ -66,7 +83,8 @@ export class LectorService {
     return res;
   }
 
-  private filesFromLector(lector: LectorEntity) {
-    return;
+  async deleteLector(id: LectorId) {
+    await this.lectorsRepository.delete(id);
+    await this.fileService.deleteEntityRelations(id);
   }
 }

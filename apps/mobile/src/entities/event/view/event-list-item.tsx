@@ -2,10 +2,10 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Duration } from 'luxon';
 import { Box, Pressable, Icon } from 'native-base';
 import React from 'react';
-import { EventLectorsText } from './texts/event-lectors-text';
-import { EventNameText } from './texts/event-name-text';
-import { EventPlaceText } from './texts/event-place-text';
-import { TimeText } from './texts/time-text';
+import { EventLectorsText } from './event-lectors-text';
+import { EventNameText } from './event-name-text';
+import { EventPlaceText } from './event-place-text';
+import { TimeText } from '../../../shared/ui/time-text';
 
 type Props = {
   lectors: string[];

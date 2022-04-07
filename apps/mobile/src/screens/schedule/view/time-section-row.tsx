@@ -5,7 +5,7 @@ import { HStack, Icon, Pressable, Text } from 'native-base';
 import { Collapsed } from '@blagost/mobile/shared/ui';
 import { Duration } from 'luxon';
 import { ListRow } from './list-row';
-import { TimeText } from './texts/time-text';
+import { TimeText } from '../../../shared/ui/time-text';
 import { TimeSectionTitleText } from './texts/time-section-title-text';
 
 type Props = {

@@ -34,7 +34,13 @@
     "react-native-modal-datetime-picker": "*",
     "intl": "*",
     "@babel/plugin-proposal-export-namespace-from": "*",
-    "uuid": "*"
+    "uuid": "*",
+    "expo-av": "*",
+    "path": "*",
+    "@react-native-community/slider": "*",
+    "expo-video-player": "*",
+    "react-native-snap-carousel": "*",
+    "@types/react-native-snap-carousel": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && npm install && cp package-lock.json ./apps/mobile/ && mv ./apps/mobile/eas.js ./index.js"

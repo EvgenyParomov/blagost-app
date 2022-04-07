@@ -21,12 +21,13 @@ export class EventEntity extends BaseEntity {
   @Column({ nullable: true })
   dateTimeDescription?: string;
 
-  @ManyToMany(() => LectorEntity)
+  @ManyToMany(() => LectorEntity, (lector) => lector.eventsHost)
   @JoinTable()
   lectors: LectorEntity[];
 
-  @ManyToMany(() => LectorEntity)
-  participant: LectorEntity[];
+  @ManyToMany(() => LectorEntity, (lector) => lector.eventsParticipant)
+  @JoinTable()
+  participants: LectorEntity[];
 
   @ManyToOne(() => PlaceEntity)
   place: PlaceEntity;

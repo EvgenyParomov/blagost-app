@@ -2,22 +2,22 @@ import axios from 'axios';
 import React, { ReactNode } from 'react';
 import Constants from 'expo-constants';
 import { ApiProvider } from '@blagost/api';
+import { replaceLocalHost } from '@blagost/mobile/shared/lib/native-std';
 
 const { manifest } = Constants;
 
 const getApiUrl = () => {
   const isDev = manifest?.packagerOpts?.dev;
-  const api = manifest?.debuggerHost?.split(`:`)?.shift() ?? '/';
 
   if (isDev) {
-    return `http://${api}:3333/api`;
+    return `http://localhost:3333/api`;
   }
 
   return '/';
 };
 
 const apiInstance = axios.create({
-  baseURL: getApiUrl(),
+  baseURL: replaceLocalHost(getApiUrl()),
   timeout: 15000,
   headers: {
     Accept: 'application/json',

@@ -6,6 +6,7 @@ import { RootTabParamList } from '@blagost/mobile/shared/interfaces';
 import { Colors } from '@blagost/mobile/shared/constants';
 
 import { useColorScheme } from 'react-native';
+import { LectorsNavigator } from './lectors-navigator';
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
@@ -25,6 +26,17 @@ export function BottomTabNavigator() {
         options={{
           header: () => null,
           title: 'Расписание',
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="calendar-o" color={color} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="LectorsTab"
+        component={LectorsNavigator}
+        options={{
+          header: () => null,
+          title: 'Переподаватели',
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="slideshare" color={color} />
           ),

@@ -3,7 +3,7 @@ import { Duration } from 'luxon';
 import { VStack } from 'native-base';
 import React from 'react';
 import { useQuery } from 'react-query';
-import { EventListItem } from '../../view/event-list-item';
+import { EventListItem } from '../../../../entities/event/view/event-list-item';
 import { ListRow } from '../../view/list-row';
 
 type Props = {

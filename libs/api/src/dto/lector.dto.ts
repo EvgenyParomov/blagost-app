@@ -1,34 +1,37 @@
-import { LinkDto } from './link.dto';
+import { CreateLinkDto, LinkDto } from './link.dto';
 
 export type LectorPartialDto = {
   id: LectorId;
   fullName: string;
-  avatar?: FileName;
+  avatar: FileName;
 };
 
 export type LectorDto = {
   id: LectorId;
   fullName: string;
   description?: string;
-  avatar?: FileName;
+  avatar: FileName;
   photos: FileName[];
   video?: FileName;
   links: LinkDto[];
-  events: PartialEvent[];
+  events: LectorEventDto[];
 };
 
 export type UpsertLectorDto = {
   id: LectorId;
   fullName: string;
   description?: string;
-  avatar?: FileName;
+  avatar: FileName;
   video?: FileName;
   photos: FileName[];
-  links: LinkId[];
+  links: CreateLinkDto[];
 };
 
-type PartialEvent = {
+export type LectorEventDto = {
   id: EventId;
   name: string;
   dateTimeDescription?: string;
+  isParticipant?: boolean;
+  lectors: string[];
+  place: string;
 };

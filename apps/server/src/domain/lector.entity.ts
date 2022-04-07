@@ -20,12 +20,14 @@ export class LectorEntity extends BaseEntity {
   @Column({ type: 'text', nullable: true })
   description: string;
 
-  @ManyToMany(() => EventEntity)
-  @JoinTable()
-  events: EventEntity[];
+  @ManyToMany(() => EventEntity, (event) => event.lectors)
+  eventsHost: EventEntity[];
+
+  @ManyToMany(() => EventEntity, (event) => event.participants)
+  eventsParticipant: EventEntity[];
 
   @Column({ type: 'varchar', nullable: true })
-  avatar?: FileName;
+  avatar: FileName;
 
   @Column({ type: 'varchar', nullable: true })
   video?: FileName;
@@ -38,7 +40,7 @@ export class LectorEntity extends BaseEntity {
   })
   photos: FileName[];
 
-  @ManyToMany(() => LinkEntity)
+  @ManyToMany(() => LinkEntity, { onDelete: 'CASCADE' })
   @JoinTable()
   links: LinkEntity[];
 }

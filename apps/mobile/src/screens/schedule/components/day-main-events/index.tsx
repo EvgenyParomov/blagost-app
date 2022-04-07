@@ -3,8 +3,8 @@ import { VStack } from 'native-base';
 import React from 'react';
 import { useQuery } from 'react-query';
 import { TimeSectionItem } from '../../view/time-section-row';
-import { EventListItem } from '../../view/event-list-item';
-import { EventsList } from '../../view/events-list';
+import { EventListItem } from '../../../../entities/event/view/event-list-item';
+import { EventsList } from '../../../../entities/event/view/events-list';
 import { Duration } from 'luxon';
 
 type Props = {

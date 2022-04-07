@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { Box, ScrollView } from 'native-base';
 
-import { Overlay } from './overlay';
+import { Overlay } from '../../../shared/ui/overlay';
 
 type Props = {
   daySelect: ReactNode;

@@ -2,6 +2,7 @@ import { Dto } from '@blagost/api';
 import {
   Body,
   Controller,
+  Delete,
   Get,
   NotFoundException,
   Param,
@@ -28,8 +29,8 @@ export class LectorController {
     return this.lectorService.upsertLector(body);
   }
 
-  @Get(':id')
+  @Delete(':id')
   async deleteLector(@Param('id') id: LectorId) {
-    throw new NotFoundException();
+    return this.lectorService.deleteLector(id);
   }
 }

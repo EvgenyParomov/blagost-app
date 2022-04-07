@@ -21,6 +21,7 @@ import { EventModule } from './event/event.module';
 import { ScheduleModule } from './schedule/schedule.module';
 import { LectorModule } from './lector/lector.module';
 import { FileModule } from './file/file.module';
+import { SettingsModule } from './settings/settings.module';
 
 @Module({
   imports: [
@@ -62,6 +63,7 @@ import { FileModule } from './file/file.module';
     ScheduleModule,
     LectorModule,
     FileModule,
+    SettingsModule,
   ],
 })
 export class AppModule {
@@ -76,7 +78,12 @@ export class AppModule {
 
     const linkBl = await LinkEntity.create({
       label: 'Сайт благости',
-      href: '#',
+      href: 'https://blagostfest.ru/',
+    }).save();
+
+    const linkEKY = await LinkEntity.create({
+      label: 'Youtube',
+      href: 'https://www.youtube.com/user/ekoinov/videos',
     }).save();
 
     const image1 = '397-89b1b922-134b-4867-8901-c2dfbb12f1a3.png' as FileName;
@@ -87,16 +94,22 @@ export class AppModule {
     const image5 =
       '241 (1)-916560f1-ff74-482e-a4de-57dd1ac073f4.png' as FileName;
 
+    const video1 =
+      'Comp 1_2-f6e3ea87-c9d5-4645-85db-3a2e771f4938.mp4' as FileName;
+
     const lectorEK = await LectorEntity.create({
       id: getStabId(),
       fullName: 'Евгений Койнов',
+      description: `Пение — один из самых простых и действенных лекарств для души, воспользоваться которым может каждый из нас. Однако часто мы не придаем ему значения или же предпочитаем подавлять в себе желание петь.  `,
       avatar: image1,
-      links: [linkBl],
+      video: video1,
+      links: [linkBl, linkEKY],
       photos: [image2, image3],
     }).save();
     const lectorOD = await LectorEntity.create({
       id: getStabId(),
       fullName: 'Ольга Давыденко',
+      description: `Мы — это то, что мы едим. Ведь выбор продуктов напрямую влияет на наше здоровье. Еда является источником стройматериалов для нашего организма, дает нам энергию и даже влияет на наше настроение. Но знаем ли мы, что такое здоровое питание?`,
       avatar: image5,
     }).save();
     const lectorAT = await LectorEntity.create({
@@ -117,34 +130,42 @@ export class AppModule {
     const lectorASH = await LectorEntity.create({
       id: getStabId(),
       fullName: 'Александр Щетинин',
+      avatar: image1,
     }).save();
     const lectorSS = await LectorEntity.create({
       id: getStabId(),
       fullName: 'Светлана Симонова',
+      avatar: image1,
     }).save();
     const lectorDB = await LectorEntity.create({
       id: getStabId(),
       fullName: 'Дмитрий Бутузов',
+      avatar: image1,
     }).save();
     const lectorIK = await LectorEntity.create({
       id: getStabId(),
       fullName: 'Иван Кабанов',
+      avatar: image1,
     }).save();
     const lectorSD = await LectorEntity.create({
       id: getStabId(),
       fullName: 'Сергей Дмитриев',
+      avatar: image1,
     }).save();
     const lectorOT = await LectorEntity.create({
       id: getStabId(),
       fullName: 'Олег Торсунов',
+      avatar: image1,
     }).save();
     const lectorGP = await LectorEntity.create({
       id: getStabId(),
       fullName: 'Глафира Питухова',
+      avatar: image1,
     }).save();
     const lectorEP = await LectorEntity.create({
       id: getStabId(),
       fullName: 'Евгений Потапов',
+      avatar: image1,
     }).save();
 
     const placeGZ = await PlaceEntity.create({
@@ -242,12 +263,14 @@ export class AppModule {
       id: getStabId(),
       name: '«Здоровым быть легко»',
       lectors: [lectorLG],
+      participants: [lectorEK],
       place: placeGZ,
     }).save();
     const eventNSZ = await EventEntity.create({
       id: getStabId(),
       name: '«Наука сохранения здоровья»',
       lectors: [lectorOT],
+      participants: [lectorEK],
       place: placeGZ,
     }).save();
     const eventYA = await EventEntity.create({
@@ -266,6 +289,7 @@ export class AppModule {
       id: getStabId(),
       name: '«Пение: от душевного к духовному»',
       lectors: [lectorEK],
+      dateTimeDescription: '18,19,20 числа в 16:00',
       place: placeCT,
     }).save();
     const eventRKZC = await EventEntity.create({

@@ -1,27 +1,18 @@
 import { EventScreen } from '@blagost/mobile/screens/event/event.screen';
 import { LectorScreen } from '@blagost/mobile/screens/lector';
-import { LectorsScreen } from '@blagost/mobile/screens/lectors';
-import { LectorsTabStackParamList } from '@blagost/mobile/shared/interfaces';
+import { ScheduleScreen } from '@blagost/mobile/screens/schedule';
+import { ScheduleTabStackParamList } from '@blagost/mobile/shared/interfaces';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const Stack = createNativeStackNavigator<LectorsTabStackParamList>();
+const Stack = createNativeStackNavigator<ScheduleTabStackParamList>();
 
-export const LectorsNavigator = () => {
+export const ScheduleNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Lectors"
-        component={LectorsScreen}
-        options={{ headerTitle: 'Преподаватели' }}
-      />
-      <Stack.Screen
-        name="Lector"
-        component={LectorScreen}
-        options={{
-          headerBackTitle: 'Назад',
-          headerTitle: 'Преподаватель',
-          contentStyle: { backgroundColor: 'white' },
-        }}
+        name="Schedule"
+        component={ScheduleScreen}
+        options={{ header: () => null }}
       />
       <Stack.Screen
         name="Event"
@@ -29,6 +20,15 @@ export const LectorsNavigator = () => {
         options={{
           headerBackTitle: 'Назад',
           headerTitle: 'Мероприятие',
+          contentStyle: { backgroundColor: 'white' },
+        }}
+      />
+      <Stack.Screen
+        name="Lector"
+        component={LectorScreen}
+        options={{
+          headerBackTitle: 'Назад',
+          headerTitle: 'Преподаватель',
           contentStyle: { backgroundColor: 'white' },
         }}
       />

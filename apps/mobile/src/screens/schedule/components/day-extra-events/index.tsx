@@ -8,8 +8,9 @@ import { ListRow } from '../../view/list-row';
 
 type Props = {
   dayId?: DayId;
+  onEventClick: (id: EventId) => void;
 };
-export const DayExtraEvents = ({ dayId }: Props) => {
+export const DayExtraEvents = ({ dayId, onEventClick }: Props) => {
   const additionalTimes = useDayAdditionalTimes(dayId);
   return (
     <VStack space="2">
@@ -21,6 +22,7 @@ export const DayExtraEvents = ({ dayId }: Props) => {
             name={time.event.name}
             place={time.event.place}
             lectors={time.event.lectors}
+            onPress={() => onEventClick(time.event.id)}
           />
         </ListRow>
       ))}

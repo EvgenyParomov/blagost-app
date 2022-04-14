@@ -31,7 +31,7 @@ services:
   files-read:
     image: nginx:latest
     volumes:
-     - ${FILES_ROOT}:/www/data
+     - ${IMPORT_ROOT}/files/:/www/data
      - ./nginx/file-server.conf:/etc/nginx/nginx.conf:ro
     ports:
      - "8080:80"

@@ -1,8 +1,9 @@
-import { EventListItem, EventsList } from '@blagost/mobile/entities/event';
+import { EventsList } from '@blagost/mobile/entities/event';
 import { useLectorById } from '@blagost/mobile/entities/lector';
 import { LectorsTabScreenProps } from '@blagost/mobile/shared/interfaces';
 import { useGetFileUrl } from '@blagost/mobile/shared/lib/settings';
 import { Overlay } from '@blagost/mobile/shared/ui/overlay';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { ScrollView } from 'native-base';
 import React from 'react';
 import { useQuery } from 'react-query';
@@ -13,11 +14,11 @@ import { LectorMainInfo } from './view/lector-main-info';
 import { LectorPhotos } from './view/lector-photos';
 import { LectorVideo } from './view/lector-video';
 
-export const LectorScreen = ({
-  route: {
+export const LectorScreen = () => {
+  const {
     params: { id },
-  },
-}: LectorsTabScreenProps<'Lector'>) => {
+  } = useRoute<RouteProp<{ Lector: { id: LectorId } }>>();
+  const navigation = useNavigation<any>();
   const lectorQuery = useLectorQuery(id);
 
   if (lectorQuery.isLoading) return <Overlay />;
@@ -36,7 +37,10 @@ export const LectorScreen = ({
       <LectorEvents sx={{ mt: 5 }}>
         <EventsList>
           {lector.events.map((event) => (
-            <LectorEvent {...event} />
+            <LectorEvent
+              {...event}
+              onPress={() => navigation.push('Event', { id: event.id })}
+            />
           ))}
         </EventsList>
       </LectorEvents>

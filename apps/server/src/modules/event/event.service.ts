@@ -40,12 +40,12 @@ export class EventService {
     }));
   }
 
-  findOne(id: EventId) {
+  findOne(id: EventId): Promise<Dto.EventDto> {
     return this.eventRepository.findOneOrFail({
       where: {
         id,
       },
-      relations: ['lectors', 'place'],
+      relations: ['lectors', 'place', 'participants'],
     });
   }
 

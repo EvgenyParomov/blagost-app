@@ -7,4 +7,10 @@ export class PlaceEntity extends BaseEntity {
 
   @Column()
   name: string;
+
+  @Column({ nullable: true })
+  howGetDescription?: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  mapPhoto?: FileName;
 }

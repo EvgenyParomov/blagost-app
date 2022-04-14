@@ -5,3 +5,4 @@ export * from './file.dto';
 export * from './lector.dto';
 export * from './settings.dto';
 export * from './link.dto';
+export * from './place.dto';

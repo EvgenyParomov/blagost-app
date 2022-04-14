@@ -13,6 +13,7 @@ type Props = {
   place?: string;
   startTime?: Duration;
   endTime?: Duration;
+  onPress?: () => void;
 };
 
 export const EventListItem = ({
@@ -21,6 +22,7 @@ export const EventListItem = ({
   lectors,
   endTime,
   startTime,
+  onPress,
 }: Props) => {
   return (
     <Pressable
@@ -30,6 +32,7 @@ export const EventListItem = ({
       _pressed={{
         opacity: 0.6,
       }}
+      onPress={onPress}
     >
       <Box flexShrink="1">
         {startTime && <TimeText startTime={startTime} endTime={endTime} />}

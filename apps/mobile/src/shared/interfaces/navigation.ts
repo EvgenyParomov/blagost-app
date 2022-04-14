@@ -10,6 +10,7 @@ declare global {
     interface RootParamList extends RootStackParamList {}
   }
 }
+export type ScreenScope = 'lectors' | 'schedule';
 
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
@@ -22,7 +23,6 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
 export type RootTabParamList = {
   LectorsTab: undefined;
   ScheduleTab: undefined;
-  NewsTab: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
@@ -36,6 +36,9 @@ export type LectorsTabStackParamList = {
   Lector: {
     id: LectorId;
   };
+  Event: {
+    id: EventId;
+  };
 };
 
 export type LectorsTabScreenProps<
@@ -43,4 +46,21 @@ export type LectorsTabScreenProps<
 > = CompositeScreenProps<
   NativeStackScreenProps<LectorsTabStackParamList, Screen>,
   RootTabScreenProps<'LectorsTab'>
+>;
+
+export type ScheduleTabStackParamList = {
+  Schedule: undefined;
+  Lector: {
+    id: LectorId;
+  };
+  Event: {
+    id: EventId;
+  };
+};
+
+export type ScheduleTabScreenProps<
+  Screen extends keyof ScheduleTabStackParamList
+> = CompositeScreenProps<
+  NativeStackScreenProps<ScheduleTabStackParamList, Screen>,
+  RootTabScreenProps<'ScheduleTab'>
 >;

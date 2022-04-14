@@ -3,14 +3,14 @@ import { VStack } from 'native-base';
 import React from 'react';
 import { useQuery } from 'react-query';
 import { TimeSectionItem } from '../../view/time-section-row';
-import { EventListItem } from '../../../../entities/event/view/event-list-item';
-import { EventsList } from '../../../../entities/event/view/events-list';
 import { Duration } from 'luxon';
+import { EventListItem, EventsList } from '@blagost/mobile/entities/event';
 
 type Props = {
   dayId?: DayId;
+  onEventClick: (id: EventId) => void;
 };
-export const DayMainEvents = ({ dayId }: Props) => {
+export const DayMainEvents = ({ dayId, onEventClick }: Props) => {
   const timeSections = useDayTimeSections(dayId) ?? [];
 
   return (
@@ -30,6 +30,7 @@ export const DayMainEvents = ({ dayId }: Props) => {
                 name={event.name}
                 lectors={event.lectors}
                 place={event.place}
+                onPress={() => onEventClick(event.id)}
               />
             ))}
           </EventsList>

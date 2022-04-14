@@ -1,3 +1,6 @@
+import { LectorPartialDto } from './lector.dto';
+import { PlaceDto } from './place.dto';
+
 export type PartialEventDto = {
   id: EventId;
   lectors: string[];
@@ -14,4 +17,17 @@ export type UpsertDto = {
 
 export type EventFiltersDto = {
   notInTimeSection?: TimeSectionId;
+};
+
+export type EventDto = {
+  id: EventId;
+  name: string;
+  description?: string;
+  prepareDescription?: string;
+  dateTimeDescription?: string;
+  photos: FileName[];
+  video?: FileName;
+  lectors?: LectorPartialDto[];
+  participants?: LectorPartialDto[];
+  place?: PlaceDto;
 };

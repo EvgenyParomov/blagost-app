@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { useDayEvents } from '@blagost/mobile/entities/day';
-import { RootTabScreenProps } from '@blagost/mobile/shared/interfaces';
+import { ScheduleTabScreenProps } from '@blagost/mobile/shared/interfaces';
 
 import { ScheduleLayout } from './view/shcedule-layout';
 import { useQuery } from 'react-query';
@@ -13,10 +13,13 @@ import { DaySelect } from './components/day-select';
 import { DayMainEvents } from './components/day-main-events';
 import { DayExtraEvents } from './components/day-extra-events';
 
-export function ScheduleScreen({}: RootTabScreenProps<'ScheduleTab'>) {
+export function ScheduleScreen({
+  navigation,
+}: ScheduleTabScreenProps<'Schedule'>) {
   const [scheduleType, setScheduleType] = useState(ScheduleType.Main);
   const [currentDayId, setCurrentDayId] = useState<DayId>();
   const isDayEventsLoading = useDayEventsLoading(currentDayId);
+  const redirectToEvent = (id: EventId) => navigation.push('Event', { id });
 
   return (
     <ScheduleLayout
@@ -35,7 +38,10 @@ export function ScheduleScreen({}: RootTabScreenProps<'ScheduleTab'>) {
       isLoading={isDayEventsLoading}
     >
       {scheduleType === ScheduleType.Main && (
-        <DayMainEvents dayId={currentDayId} />
+        <DayMainEvents
+          onEventClick={(id) => navigation.push('Event', { id })}
+          dayId={currentDayId}
+        />
       )}
       {scheduleType === ScheduleType.Extra && (
         <DayExtraEvents dayId={currentDayId} />

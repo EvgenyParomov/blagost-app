@@ -1,12 +1,11 @@
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NewsScreen } from '@blagost/mobile/screens/news/news.screen';
-import { ScheduleScreen } from '@blagost/mobile/screens/schedule/schedule.screen';
 import { RootTabParamList } from '@blagost/mobile/shared/interfaces';
 import { Colors } from '@blagost/mobile/shared/constants';
 
 import { useColorScheme } from 'react-native';
 import { LectorsNavigator } from './lectors-navigator';
+import { ScheduleNavigator } from './schedule-navigator';
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
@@ -22,7 +21,7 @@ export function BottomTabNavigator() {
     >
       <BottomTab.Screen
         name="ScheduleTab"
-        component={ScheduleScreen}
+        component={ScheduleNavigator}
         options={{
           header: () => null,
           title: 'Расписание',
@@ -39,16 +38,6 @@ export function BottomTabNavigator() {
           title: 'Переподаватели',
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="slideshare" color={color} />
-          ),
-        }}
-      />
-      <BottomTab.Screen
-        name="NewsTab"
-        component={NewsScreen}
-        options={{
-          title: 'Новости',
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="newspaper-o" color={color} />
           ),
         }}
       />

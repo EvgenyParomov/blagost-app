@@ -1,6 +1,6 @@
 import { FontAwesome } from '@expo/vector-icons';
 import React, { ReactNode, useState } from 'react';
-import { HStack, Icon, Pressable, Text } from 'native-base';
+import { HStack, Icon, Pressable } from 'native-base';
 
 import { Collapsed } from '@blagost/mobile/shared/ui';
 import { Duration } from 'luxon';

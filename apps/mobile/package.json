@@ -40,7 +40,8 @@
     "@react-native-community/slider": "*",
     "expo-video-player": "*",
     "react-native-snap-carousel": "*",
-    "@types/react-native-snap-carousel": "*"
+    "@types/react-native-snap-carousel": "*",
+    "expo-crypto": "*"
   },
   "scripts": {
     "eas-build-pre-install": "cd ../../ && npm install && cp package-lock.json ./apps/mobile/ && mv ./apps/mobile/eas.js ./index.js"

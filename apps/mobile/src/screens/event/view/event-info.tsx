@@ -9,6 +9,8 @@ import {
   HStack,
   Avatar,
 } from 'native-base';
+import { useBooleanState } from '@blagost/react-std';
+import { Place, PlaceModal } from '@blagost/mobile/entities/place';
 
 type Lector = {
   id: LectorId;
@@ -20,7 +22,7 @@ type Props = {
   sx?: StyledProps;
   dateTimeDescription?: string;
   prepareDescription?: string;
-  place?: Dto.PlaceDto;
+  place?: Place;
   lectors?: Lector[];
   participants?: Lector[];
   onLectorPress: (id: LectorId) => void;
@@ -35,6 +37,7 @@ export const EventInfo = ({
   participants,
   onLectorPress,
 }: Props) => {
+  const placeOpen = useBooleanState(false);
   const renderLector = (lector: Lector) => (
     <HStack space="2" alignItems="center">
       <Avatar size="md" source={{ uri: lector.avatar }} />
@@ -51,6 +54,7 @@ export const EventInfo = ({
       </Box>
     </HStack>
   );
+
   return (
     <Box {...sx}>
       {Boolean(lectors?.length) && (
@@ -76,10 +80,21 @@ export const EventInfo = ({
           </Text>
           <Text fontSize="md">
             {place?.name}
-            <Link pl="2" _text={{ color: 'cyan.500', fontSize: 'md' }}>
-              Как добраться?
-            </Link>
+            {(place.howGetDescription || place.mapPhoto) && (
+              <Link
+                onPress={placeOpen.setTrue}
+                pl="2"
+                _text={{ color: 'cyan.500', fontSize: 'md' }}
+              >
+                Как добраться?
+              </Link>
+            )}
           </Text>
+          <PlaceModal
+            place={place}
+            isOpen={placeOpen.is}
+            onClose={placeOpen.setFalse}
+          />
         </InfoItem>
       )}
       {prepareDescription && (
@@ -93,7 +108,7 @@ export const EventInfo = ({
       {Boolean(participants?.length) && (
         <InfoItem sx={{ py: '3' }}>
           <Text fontSize="md" mb="1" fontWeight="600">
-            Учасники
+            Участники
           </Text>
           <VStack space={'2'}>{participants?.map(renderLector)}</VStack>
         </InfoItem>

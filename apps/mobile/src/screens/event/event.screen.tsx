@@ -60,6 +60,12 @@ function useEventQuery(id: EventId) {
       })),
       video: getUrl(data?.video),
       photos: data?.photos.map((photo) => getUrl(photo)),
+      place: data?.place
+        ? {
+            ...data.place,
+            mapPhoto: getUrl(data?.place?.mapPhoto),
+          }
+        : undefined,
     }),
   });
 }

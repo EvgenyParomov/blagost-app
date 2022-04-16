@@ -1,5 +1,5 @@
 import { getStabId } from '@blagost/server/shared/uuid';
-import { Module } from '@nestjs/common';
+import { Module, CacheModule, CacheInterceptor } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EventEmitterModule } from '@nestjs/event-emitter';
@@ -23,9 +23,14 @@ import { FileModule } from './file/file.module';
 import { SettingsModule } from './settings/settings.module';
 import { ImportService } from './import/import.service';
 import { ImportModule } from './import/import.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 
 @Module({
   imports: [
+    CacheModule.register({
+      ttl: 3600, // seconds
+      max: 100, // maximum number of items in cache
+    }),
     ConfigModule.forRoot({ isGlobal: true, expandVariables: true }),
     TypeOrmModule.forRootAsync({
       useFactory: (configService: ConfigService) => {
@@ -66,6 +71,12 @@ import { ImportModule } from './import/import.module';
     FileModule,
     SettingsModule,
     ImportModule,
+  ],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CacheInterceptor,
+    },
   ],
 })
 export class AppModule {

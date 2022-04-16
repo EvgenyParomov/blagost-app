@@ -46,6 +46,7 @@ export const DaySelect = ({ currentDayId, setCurrentDayId }: Props) => {
       ></IconButton>
       <DateTimePickerModal
         mode="date"
+        date={selectDate.currentDay?.date.toJSDate()}
         isVisible={dateModal.show}
         onConfirm={dateModal.handleSelectDate}
         onCancel={dateModal.handleCloseModal}

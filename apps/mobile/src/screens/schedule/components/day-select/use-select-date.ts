@@ -8,9 +8,8 @@ export const useSelectDate = (
   setCurrentDayId?: (id?: DayId) => void
 ) => {
   const { days = [] } = useFestivalDays();
-
-  const maximumDate: DateTime | undefined = days[0]?.date;
-  const minimumDate: DateTime | undefined = days[days.length - 1]?.date;
+  const minimumDate: DateTime | undefined = days[0]?.date;
+  const maximumDate: DateTime | undefined = days[days.length - 1]?.date;
 
   const currentDayIndex = days.findIndex((day) => day.id === currentDayId);
   const currentDay = days[currentDayIndex];

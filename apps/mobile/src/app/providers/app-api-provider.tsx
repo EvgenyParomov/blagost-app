@@ -8,12 +8,10 @@ const { manifest } = Constants;
 
 const getApiUrl = () => {
   const isDev = manifest?.packagerOpts?.dev;
-
   if (isDev) {
     return `http://localhost:3333/api`;
   }
-
-  return '/';
+  return 'http://176.119.159.59:3333/api';
 };
 
 const apiInstance = axios.create({

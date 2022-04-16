@@ -3,7 +3,7 @@ import { DateTime, Duration } from 'luxon';
 export namespace CellParsers {
   export const parseTime = (str: string) => Duration.fromISOTime(str);
   export const parseTimeOpt = (str: string) =>
-    !str ? undefined : Duration.fromISOTime(str);
+    !str ? undefined : Duration.fromISOTime(str.padStart(4, '0'));
   export const parseDate = (str: string) =>
     DateTime.fromFormat(str, 'dd.MM.yyyy');
   export const parseStr = (str: string) => str.trim();

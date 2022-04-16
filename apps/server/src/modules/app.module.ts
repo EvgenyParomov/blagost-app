@@ -16,7 +16,6 @@ import {
 } from '@blagost/server/domain';
 
 import { FestivalModule } from './festival/festival.module';
-import { DateTime } from 'luxon';
 import { EventModule } from './event/event.module';
 import { ScheduleModule } from './schedule/schedule.module';
 import { LectorModule } from './lector/lector.module';
